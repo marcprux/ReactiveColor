@@ -27,10 +27,15 @@
 @property (weak, nonatomic) IBOutlet RXCLGradientView *grad2;
 @property (weak, nonatomic) IBOutlet RXCLGradientView *grad3;
 @property (weak, nonatomic) IBOutlet RXCLGradientView *grad4;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *undoButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shuffleButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *flexSpace2;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *flexSpace1;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *flexSpace3;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottom;
 

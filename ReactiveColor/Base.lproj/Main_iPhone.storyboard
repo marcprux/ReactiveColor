@@ -38,7 +38,7 @@
                                     <constraint firstAttribute="width" constant="60" id="4YW-Gw-6jY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                 <connections>
                                     <action selector="keyboardDidEnd:" destination="vXZ-lx-hvc" eventType="editingDidEndOnExit" id="bhC-La-E4u"/>
                                 </connections>
@@ -65,7 +65,7 @@
                                     <constraint firstAttribute="width" constant="60" id="LuA-zY-3WE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                 <connections>
                                     <action selector="keyboardDidEnd:" destination="vXZ-lx-hvc" eventType="editingDidEndOnExit" id="azz-xt-fgO"/>
                                 </connections>
@@ -92,7 +92,7 @@
                                     <constraint firstAttribute="width" constant="60" id="Kfa-d3-m1M"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                 <connections>
                                     <action selector="keyboardDidEnd:" destination="vXZ-lx-hvc" eventType="editingDidEndOnExit" id="IeP-lq-zBs"/>
                                 </connections>
@@ -112,14 +112,14 @@
                                 <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </slider>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vRt-9c-QtC">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vRt-9c-QtC">
                                 <rect key="frame" x="240" y="358" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="cMx-N1-a8R"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <action selector="keyboardDidEnd:" destination="vXZ-lx-hvc" eventType="editingDidEndOnExit" id="vSt-sX-bJ0"/>
                                 </connections>
@@ -158,6 +158,8 @@
                                     <barButtonItem title="Shuffle" id="RLF-o4-fob"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="bWR-um-mn4"/>
                                     <barButtonItem title="Redo" id="4IK-qU-y4q"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="0Gj-WI-cS9"/>
+                                    <barButtonItem style="done" systemItem="done" id="WRH-FN-30V"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -214,6 +216,10 @@
                     <connections>
                         <outlet property="canvas" destination="3FW-0J-T5j" id="bOD-mf-Id6"/>
                         <outlet property="canvasField" destination="leF-gy-rGM" id="BPq-yQ-mPB"/>
+                        <outlet property="doneButton" destination="WRH-FN-30V" id="Irj-Ol-Hqx"/>
+                        <outlet property="flexSpace1" destination="pmV-Ff-E2R" id="Jc9-fA-uCC"/>
+                        <outlet property="flexSpace2" destination="bWR-um-mn4" id="w9V-oB-DM3"/>
+                        <outlet property="flexSpace3" destination="0Gj-WI-cS9" id="RTa-GJ-lhj"/>
                         <outlet property="grad1" destination="32B-RR-LE1" id="IVT-Mt-1X0"/>
                         <outlet property="grad2" destination="ZRw-6O-AJd" id="j9i-Hg-NMP"/>
                         <outlet property="grad3" destination="YRB-LC-t6Y" id="6uz-JH-vdQ"/>
@@ -228,6 +234,7 @@
                         <outlet property="text2" destination="nCQ-xg-Z6G" id="e8a-6E-yW3"/>
                         <outlet property="text3" destination="cLW-Ek-gVB" id="1DS-8b-Ztw"/>
                         <outlet property="text4" destination="cFt-c6-Tii" id="7Me-Hq-BrN"/>
+                        <outlet property="toolbar" destination="EmD-J2-pkA" id="yYA-Wb-h7e"/>
                         <outlet property="toolbarBottom" destination="xJX-MP-byN" id="8Du-xy-RU1"/>
                         <outlet property="undoButton" destination="tqY-51-dbW" id="YgX-Qp-E6m"/>
                     </connections>

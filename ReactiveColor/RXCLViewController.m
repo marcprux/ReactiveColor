@@ -162,18 +162,40 @@
         [self.view setNeedsUpdateConstraints];
 
         // move the text fields in sync with the keyboard animation
+
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationCurve:[note.userInfo[UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue]];
         [UIView setAnimationDuration:[note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
         [self.view layoutIfNeeded];
+
         [UIView commitAnimations];
     }];
 
+    // setup the done button to appear only when the keyboard is visible
+    self.doneButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        [self.view endEditing:YES]; // resigns the other first responders
+        return [RACSignal empty];
+    }];
+
+    NSArray *toolbarItems = self.toolbar.items;
+    [[RACSignal merge:@[
+                        [[NSNotificationCenter defaultCenter] rac_addObserverForName:UIWindowDidBecomeKeyNotification object:nil],
+                        [[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil],
+                        [[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil]]
+      ] subscribeNext:^(NSNotification *note) {
+        BOOL keyboardShowing = [note.name isEqualToString:UIKeyboardWillShowNotification];
+        [self.toolbar setItems:[[toolbarItems.rac_sequence filter:^BOOL(UIBarButtonItem *button) {
+            return (button == self.doneButton || button == self.flexSpace3) == keyboardShowing;
+        }] array] animated:YES];
+
+    }];
 
     // add a tap recognizer that adjusts the hue and saturation of the color
     UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc] init];
     [self.canvas addGestureRecognizer:tapper];
     [[tapper rac_gestureSignal] subscribeNext:^(UIPanGestureRecognizer *recognizer) {
+        [self.view endEditing:YES];
+
         UIColor *color = [UIColor colorWithRed:model.red green:model.green blue:model.blue alpha:model.alpha];
         CGFloat hue, sat, bri, alpha;
         [color getHue:&hue saturation:&sat brightness:&bri alpha:&alpha];

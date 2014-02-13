@@ -11,10 +11,10 @@
 @import CoreData;
 
 @interface RXCLColor : NSManagedObject
-@property CGFloat red;
-@property CGFloat green;
-@property CGFloat blue;
-@property CGFloat alpha;
+@property double red;
+@property double green;
+@property double blue;
+@property double alpha;
 
 /** Returns a signal that forms a UIColor from the rgba components of this object */
 - (RACSignal *)colorSignal;

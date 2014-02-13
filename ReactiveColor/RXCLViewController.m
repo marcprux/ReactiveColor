@@ -62,7 +62,11 @@
 @synthesize undoManager;
 
 - (void)viewDidLoad {
+    if ([self isRunningTestCases])
+        return;
+
     [super viewDidLoad];
+    [self assignRandomColor];
     [self setupGradientSliderBackgrounds];
 
     self.reactiveColor = [RXCLColor createColor];
@@ -295,6 +299,11 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+/** Whether we are currently running test cases; used to skip loading the view controller for test cases */
+- (BOOL)isRunningTestCases {
+    return [[[NSProcessInfo processInfo] environment][@"XCInjectBundle"] hasSuffix:@"test"];
 }
 
 @end

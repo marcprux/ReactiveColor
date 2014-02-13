@@ -88,8 +88,9 @@
     [colorSignal subscribeNext:^(UIColor *color) {
         @strongify(self);
         CGFloat brightness;
-        [color getHue:NULL saturation:NULL brightness:&brightness alpha:NULL];
-        self.canvasField.textColor = brightness >= 0.5 ? [UIColor blackColor] : [UIColor whiteColor];
+        CGFloat alpha;
+        [color getHue:NULL saturation:NULL brightness:&brightness alpha:&alpha];
+        self.canvasField.textColor = alpha < .5 || brightness >= 0.5 ? [UIColor blackColor] : [UIColor whiteColor];
     }];
 
     // we also change the view's tint color whenever the model color changes (affects toolbar buttons)

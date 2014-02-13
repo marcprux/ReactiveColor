@@ -129,10 +129,10 @@
 				7ED28947189A24BD003A04ED /* RXCLColor.m */,
 				7ED0DF98189A1186009CF693 /* RXCLAppDelegate.h */,
 				7ED0DF99189A1186009CF693 /* RXCLAppDelegate.m */,
-				7ED0DF9B189A1186009CF693 /* Main_iPhone.storyboard */,
-				7ED0DF9E189A1186009CF693 /* Main_iPad.storyboard */,
 				7ED0DFA1189A1186009CF693 /* RXCLViewController.h */,
 				7ED0DFA2189A1186009CF693 /* RXCLViewController.m */,
+				7ED0DF9B189A1186009CF693 /* Main_iPhone.storyboard */,
+				7ED0DF9E189A1186009CF693 /* Main_iPad.storyboard */,
 				7ED0DFA4189A1186009CF693 /* Images.xcassets */,
 				7ED0DF90189A1186009CF693 /* Supporting Files */,
 			);

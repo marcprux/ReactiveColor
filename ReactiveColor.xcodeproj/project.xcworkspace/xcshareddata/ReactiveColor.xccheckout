@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0D269385-6435-47C6-9323-390C25670A04</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ReactiveColor</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AD4155D3-6028-44D8-A295-E6137DF16AD3</key>
+		<string>ssh://devel.impathic.com/~git/impathic.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ReactiveColor/ReactiveColor.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AD4155D3-6028-44D8-A295-E6137DF16AD3</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://devel.impathic.com/~git/impathic.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AD4155D3-6028-44D8-A295-E6137DF16AD3</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AD4155D3-6028-44D8-A295-E6137DF16AD3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>impathic</string>
+		</dict>
+	</array>
+</dict>
+</plist>

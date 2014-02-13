@@ -3,7 +3,7 @@
 //  ReactiveColor
 //
 //  Created by Marc Prud'hommeaux on 1/29/14.
-//  Copyright (c) 2014 impathic. All rights reserved.
+//  MIT License
 //
 
 #import "RXCLViewController.h"

@@ -11,35 +11,24 @@
 
 @implementation RXCLColor
 
-- (RACSignal *)colorSignalFixed {
+- (RACSignal *)colorSignal {
     return [RACSignal combineLatest:@[
-                                      RACObserve(self, red),
-                                      RACObserve(self, green),
-                                      RACObserve(self, blue),
+                                      RACObserve(self, mode),
+                                      RACObserve(self, color1),
+                                      RACObserve(self, color2),
+                                      RACObserve(self, color3),
                                       RACObserve(self, alpha) ]
-                             reduce:^(NSNumber *r,
-                                      NSNumber *g,
-                                      NSNumber *b,
+                             reduce:^(NSNumber *m,
+                                      NSNumber *c1,
+                                      NSNumber *c2,
+                                      NSNumber *c3,
                                       NSNumber *a) {
-                                 return [UIColor colorWithRed:r.doubleValue green:g.doubleValue blue:b.doubleValue alpha:a.doubleValue];
+                                 if ([m boolValue])
+                                     return [UIColor colorWithHue:c1.doubleValue saturation:c2.doubleValue brightness:c3.doubleValue alpha:a.doubleValue];
+                                 else
+                                     return [UIColor colorWithRed:c1.doubleValue green:c2.doubleValue blue:c3.doubleValue alpha:a.doubleValue];
                              }];
 }
-
-- (RACSignal *)colorSignalDynamic {
-    return [[RACSignal combineLatest:@[
-                                       RACObserve(self, red),
-                                       RACObserve(self, green),
-                                       RACObserve(self, blue),
-                                       RACObserve(self, alpha) ]
-             ] map:^(RACTuple *comps) {
-        return [UIColor colorWithRed:[comps[0] doubleValue] green:[comps[1] doubleValue] blue:[comps[2] doubleValue] alpha:[comps[3] doubleValue]];
-    }];
-}
-
-- (RACSignal *)colorSignal {
-    return [self colorSignalDynamic];
-}
-
 
 //+ (RXCLColor *)createColor {
 //    return [[RXCLColor alloc] init];
@@ -48,7 +37,7 @@
 
 // being a CoreData NSManagerObject instance is only to gain undo support; we use a minimal in-memory persistent store for this
 
-@dynamic red, blue, green, alpha;
+@dynamic mode, color1, color2, color3, alpha;
 
 + (RXCLColor *)createColor {
     return [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(RXCLColor.class) inManagedObjectContext:[self globalContext]];
@@ -67,10 +56,10 @@
     colorEntity.name = colorEntity.managedObjectClassName = entityName;
 
     NSMutableArray *props = [NSMutableArray array];
-    for (NSString *propName in @[ @keypath(RXCLColor.new, red), @keypath(RXCLColor.new, green), @keypath(RXCLColor.new, blue), @keypath(RXCLColor.new, alpha) ]) {
+    for (NSString *propName in @[ @keypath(RXCLColor.new, mode), @keypath(RXCLColor.new, color1), @keypath(RXCLColor.new, color2), @keypath(RXCLColor.new, color3), @keypath(RXCLColor.new, alpha) ]) {
         NSAttributeDescription *attr = [[NSAttributeDescription alloc] init];
         attr.name = propName;
-        attr.attributeType = NSDoubleAttributeType;
+        attr.attributeType = [propName isEqualToString:@keypath(RXCLColor.new, mode)] ? NSBooleanAttributeType : NSDoubleAttributeType;
         [props addObject:attr];
     }
     colorEntity.properties = props;

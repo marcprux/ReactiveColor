@@ -14,7 +14,6 @@
 		7ED0DF96189A1186009CF693 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED0DF95189A1186009CF693 /* main.m */; };
 		7ED0DF9A189A1186009CF693 /* RXCLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED0DF99189A1186009CF693 /* RXCLAppDelegate.m */; };
 		7ED0DF9D189A1186009CF693 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ED0DF9B189A1186009CF693 /* Main_iPhone.storyboard */; };
-		7ED0DFA0189A1186009CF693 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ED0DF9E189A1186009CF693 /* Main_iPad.storyboard */; };
 		7ED0DFA3189A1186009CF693 /* RXCLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED0DFA2189A1186009CF693 /* RXCLViewController.m */; };
 		7ED0DFA5189A1186009CF693 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ED0DFA4189A1186009CF693 /* Images.xcassets */; };
 		7ED0DFAC189A1186009CF693 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED0DFAB189A1186009CF693 /* XCTest.framework */; };
@@ -51,7 +50,6 @@
 		7ED0DF98189A1186009CF693 /* RXCLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RXCLAppDelegate.h; sourceTree = "<group>"; };
 		7ED0DF99189A1186009CF693 /* RXCLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RXCLAppDelegate.m; sourceTree = "<group>"; };
 		7ED0DF9C189A1186009CF693 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		7ED0DF9F189A1186009CF693 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		7ED0DFA1189A1186009CF693 /* RXCLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RXCLViewController.h; sourceTree = "<group>"; };
 		7ED0DFA2189A1186009CF693 /* RXCLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RXCLViewController.m; sourceTree = "<group>"; };
 		7ED0DFA4189A1186009CF693 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 				7ED0DFA1189A1186009CF693 /* RXCLViewController.h */,
 				7ED0DFA2189A1186009CF693 /* RXCLViewController.m */,
 				7ED0DF9B189A1186009CF693 /* Main_iPhone.storyboard */,
-				7ED0DF9E189A1186009CF693 /* Main_iPad.storyboard */,
 				7ED0DFA4189A1186009CF693 /* Images.xcassets */,
 				7ED0DF90189A1186009CF693 /* Supporting Files */,
 			);
@@ -254,7 +251,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7ED0DFA0189A1186009CF693 /* Main_iPad.storyboard in Resources */,
 				7ED0DFA5189A1186009CF693 /* Images.xcassets in Resources */,
 				7ED0DF9D189A1186009CF693 /* Main_iPhone.storyboard in Resources */,
 				7ED0DF94189A1186009CF693 /* InfoPlist.strings in Resources */,
@@ -379,14 +375,6 @@
 				7ED0DF9C189A1186009CF693 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		7ED0DF9E189A1186009CF693 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7ED0DF9F189A1186009CF693 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		7ED0DFB4189A1186009CF693 /* InfoPlist.strings */ = {

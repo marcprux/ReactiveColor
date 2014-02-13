@@ -155,6 +155,13 @@
                                 <items>
                                     <barButtonItem title="Undo" id="tqY-51-dbW"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="pmV-Ff-E2R"/>
+                                    <barButtonItem style="plain" id="jqd-Iq-u6A">
+                                        <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="4Jb-tq-nbe">
+                                            <rect key="frame" x="73" y="7" width="51" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </switch>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kGL-Lc-xXA"/>
                                     <barButtonItem title="Shuffle" id="RLF-o4-fob"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="bWR-um-mn4"/>
                                     <barButtonItem title="Redo" id="4IK-qU-y4q"/>
@@ -207,7 +214,7 @@
                             <constraint firstItem="ZRw-6O-AJd" firstAttribute="trailing" secondItem="MM3-7m-kUi" secondAttribute="trailing" id="uFg-kh-x7I"/>
                             <constraint firstItem="cLW-Ek-gVB" firstAttribute="leading" secondItem="Xfd-gT-TRB" secondAttribute="trailing" constant="8" id="uZQ-pc-9iY"/>
                             <constraint firstItem="TOe-by-I9V" firstAttribute="leading" secondItem="3tp-Fz-cmg" secondAttribute="leading" id="wEJ-qv-mlU"/>
-                            <constraint firstItem="Qw2-Bg-0F5" firstAttribute="top" secondItem="EmD-J2-pkA" secondAttribute="bottom" id="xJX-MP-byN"/>
+                            <constraint firstItem="Qw2-Bg-0F5" firstAttribute="top" secondItem="EmD-J2-pkA" secondAttribute="bottom" priority="896" id="xJX-MP-byN"/>
                             <constraint firstItem="vRt-9c-QtC" firstAttribute="top" secondItem="3FW-0J-T5j" secondAttribute="bottom" constant="8" id="xWa-hS-Hd5"/>
                             <constraint firstItem="MM3-7m-kUi" firstAttribute="top" secondItem="32B-RR-LE1" secondAttribute="bottom" constant="19" id="yVL-eL-bJd"/>
                             <constraint firstItem="EmD-J2-pkA" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="zVv-cL-aSK"/>
@@ -224,6 +231,7 @@
                         <outlet property="grad2" destination="ZRw-6O-AJd" id="j9i-Hg-NMP"/>
                         <outlet property="grad3" destination="YRB-LC-t6Y" id="6uz-JH-vdQ"/>
                         <outlet property="grad4" destination="3tp-Fz-cmg" id="VEG-6p-MSE"/>
+                        <outlet property="modeSwich" destination="4Jb-tq-nbe" id="R69-ZJ-K1p"/>
                         <outlet property="redoButton" destination="4IK-qU-y4q" id="5mX-E8-cSo"/>
                         <outlet property="shuffleButton" destination="RLF-o4-fob" id="KJ1-OB-MgT"/>
                         <outlet property="slider1" destination="wam-LD-bND" id="yzf-rL-Twz"/>

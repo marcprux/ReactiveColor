@@ -85,7 +85,7 @@
     // the text in the center of the canvas is a hex representation of the color
     [colorSignal subscribeNext:^(UIColor *color) {
         @strongify(self);
-        self.canvasField.text = [NSString stringWithFormat:@"#%02X%02X%02X%02X", (int)(model.red*255), (int)(model.green*255), (int)(model.blue*255), (int)(model.alpha*255)];
+        self.canvasField.text = [NSString stringWithFormat:@"#%02X%02X%02X%02X", (int)(model.color1*255), (int)(model.color2*255), (int)(model.color3*255), (int)(model.alpha*255)];
     }];
 
 
@@ -101,13 +101,14 @@
     [colorSignal subscribeNext:^(UIColor *color) {
         @strongify(self);
         self.view.tintColor = [color colorWithAlphaComponent:1];
+        self.modeSwich.tintColor = self.modeSwich.onTintColor = [color colorWithAlphaComponent:1];
     }];
 
-
     // each slider is bound to the appropriate component of the color
-    RACChannelTo(model, red) = [self.slider1 rac_newValueChannelWithNilValue:@0];
-    RACChannelTo(model, green) = [self.slider2 rac_newValueChannelWithNilValue:@0];
-    RACChannelTo(model, blue) = [self.slider3 rac_newValueChannelWithNilValue:@0];
+    RACChannelTo(model, mode) = [self.modeSwich rac_newOnChannel];
+    RACChannelTo(model, color1) = [self.slider1 rac_newValueChannelWithNilValue:@0];
+    RACChannelTo(model, color2) = [self.slider2 rac_newValueChannelWithNilValue:@0];
+    RACChannelTo(model, color3) = [self.slider3 rac_newValueChannelWithNilValue:@0];
     RACChannelTo(model, alpha) = [self.slider4 rac_newValueChannelWithNilValue:@0];
 
     // each text field maps to a component and transforms between percentage text and the numberic value
@@ -117,9 +118,9 @@
     percentage.maximum = @1;
     percentage.minimum = @0;
 
-    [self bindNumericTerminal:RACChannelTo(model, red) toStringTerminal:[self.text1 rac_newTextChannel] withFormatter:percentage];
-    [self bindNumericTerminal:RACChannelTo(model, green) toStringTerminal:[self.text2 rac_newTextChannel] withFormatter:percentage];
-    [self bindNumericTerminal:RACChannelTo(model, blue) toStringTerminal:[self.text3 rac_newTextChannel] withFormatter:percentage];
+    [self bindNumericTerminal:RACChannelTo(model, color1) toStringTerminal:[self.text1 rac_newTextChannel] withFormatter:percentage];
+    [self bindNumericTerminal:RACChannelTo(model, color2) toStringTerminal:[self.text2 rac_newTextChannel] withFormatter:percentage];
+    [self bindNumericTerminal:RACChannelTo(model, color3) toStringTerminal:[self.text3 rac_newTextChannel] withFormatter:percentage];
     [self bindNumericTerminal:RACChannelTo(model, alpha) toStringTerminal:[self.text4 rac_newTextChannel] withFormatter:percentage];
 
     // we can't use rac_newTextChannel because it sends an event on every keystroke!
@@ -132,14 +133,14 @@
 
         // handle both RGBA and RGB hex strings
         if (hexString.length >= 8) {
-            model.red = ((argbValue & 0xFF000000) >> 24)/255.0;
-            model.green = ((argbValue & 0xFF0000) >> 16)/255.0;
-            model.blue = ((argbValue & 0xFF00) >> 8)/255.0;
+            model.color1 = ((argbValue & 0xFF000000) >> 24)/255.0;
+            model.color2 = ((argbValue & 0xFF0000) >> 16)/255.0;
+            model.color3 = ((argbValue & 0xFF00) >> 8)/255.0;
             model.alpha = (argbValue & 0xFF)/255.0;
         } else {
-            model.red = ((argbValue & 0xFF0000) >> 16)/255.0;
-            model.green = ((argbValue & 0xFF00) >> 8)/255.0;
-            model.blue = (argbValue & 0xFF)/255.0;
+            model.color1 = ((argbValue & 0xFF0000) >> 16)/255.0;
+            model.color2 = ((argbValue & 0xFF00) >> 8)/255.0;
+            model.color3 = (argbValue & 0xFF)/255.0;
         }
 
     }];
@@ -156,7 +157,9 @@
     // compress the views when the keyboard displays
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillChangeFrameNotification object:nil] subscribeNext:^(NSNotification *note) {
         @strongify(self);
+        NSLog(@"keyboard: %@", note);
         CGRect keyboardBounds = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        keyboardBounds = [self.view convertRect:keyboardBounds fromView:nil]; // account for rotation
 
         self.toolbarBottom.constant = CGRectGetHeight(self.view.bounds) - CGRectGetMinY(keyboardBounds);
         [self.view setNeedsUpdateConstraints];
@@ -196,18 +199,18 @@
     [[tapper rac_gestureSignal] subscribeNext:^(UIPanGestureRecognizer *recognizer) {
         [self.view endEditing:YES];
 
-        UIColor *color = [UIColor colorWithRed:model.red green:model.green blue:model.blue alpha:model.alpha];
+        UIColor *color = [UIColor colorWithRed:model.color1 green:model.color2 blue:model.color3 alpha:model.alpha];
         CGFloat hue, sat, bri, alpha;
         [color getHue:&hue saturation:&sat brightness:&bri alpha:&alpha];
         UIView *v = recognizer.view;
         hue = [recognizer locationInView:v].x / (v.bounds.size.width);
         sat = [recognizer locationInView:v].y / (v.bounds.size.height);
         color = [UIColor colorWithHue:hue saturation:sat brightness:bri alpha:alpha];
-        CGFloat red, green, blue;
-        [color getRed:&red green:&green blue:&blue alpha:&alpha];
-        model.red = red;
-        model.green = green;
-        model.blue = blue;
+        CGFloat color1, color2, color3;
+        [color getRed:&color1 green:&color2 blue:&color3 alpha:&alpha];
+        model.color1 = color1;
+        model.color2 = color2;
+        model.color3 = color3;
         model.alpha = alpha;
     }];
 
@@ -283,9 +286,9 @@
 }
 
 - (void)assignRandomColor {
-    self.reactiveColor.red = drand48();
-    self.reactiveColor.blue = drand48();
-    self.reactiveColor.green = drand48();
+    self.reactiveColor.color1 = drand48();
+    self.reactiveColor.color2 = drand48();
+    self.reactiveColor.color3 = drand48();
     self.reactiveColor.alpha = drand48();
 }
 

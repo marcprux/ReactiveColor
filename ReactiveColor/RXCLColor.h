@@ -10,15 +10,18 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 @import CoreData;
 
+/** A 3-component color model that will signal color changes based on the mode (HSB/RGB) */
 @interface RXCLColor : NSManagedObject
-@property double red;
-@property double green;
-@property double blue;
+@property BOOL mode;
+@property double color1;
+@property double color2;
+@property double color3;
 @property double alpha;
 
 /** Returns a signal that forms a UIColor from the rgba components of this object */
 - (RACSignal *)colorSignal;
 
+/** Creates a new color instance */
 + (RXCLColor *)createColor;
 
 @end

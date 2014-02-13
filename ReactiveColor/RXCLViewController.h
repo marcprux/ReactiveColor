@@ -31,6 +31,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *undoButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
+@property (weak, nonatomic) IBOutlet UISwitch *modeSwich;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shuffleButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *flexSpace2;

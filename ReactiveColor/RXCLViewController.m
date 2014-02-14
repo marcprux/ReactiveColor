@@ -12,19 +12,18 @@
 @implementation UIColor(RXCLHelper)
 
 /** Return a variation of the current color by setting the comonent index to the given value */
-- (UIColor *)colorWithComponent:(NSUInteger)componentIndex value:(CGFloat)value {
-    CGColorRef color = [self CGColor];
-    CGColorSpaceRef space = CGColorGetColorSpace(color);
-    size_t compCount = CGColorSpaceGetNumberOfComponents(space) + 1;
-    if (componentIndex >= compCount)
-        return nil;
+- (UIColor *)colorWithComponent:(NSUInteger)componentIndex value:(CGFloat)value inMode:(BOOL)hsl {
+    CGFloat components[4];
 
-    CGFloat comps[compCount];
-    memcpy(comps, CGColorGetComponents(color), sizeof(CGFloat)*compCount);
-    comps[componentIndex] = value;
-
-    UIColor *c = [UIColor colorWithCGColor:CGColorCreate(space, comps)];
-    return c;
+    if (hsl) {
+        [self getHue:&components[0] saturation:&components[1] brightness:&components[2] alpha:&components[3]];
+        components[componentIndex] = value;
+        return [UIColor colorWithHue:components[0] saturation:components[1] brightness:components[2] alpha:components[3]];
+    } else {
+        [self getRed:&components[0] green:&components[1] blue:&components[2] alpha:&components[3]];
+        components[componentIndex] = value;
+        return [UIColor colorWithRed:components[0] green:components[1] blue:components[2] alpha:components[3]];
+    }
 }
 
 @end
@@ -43,12 +42,11 @@
     return nil;
 }
 
-- (void)setGradientFromColor:(UIColor *)col varyingComponent:(NSUInteger)componentIndex {
+- (void)setGradientFromColor:(UIColor *)col varyingComponent:(NSUInteger)componentIndex inMode:(BOOL)hsl {
     CAGradientLayer *layer = (CAGradientLayer *)self.layer;
     layer.colors = @[
-                     (__bridge id)[[col colorWithComponent:componentIndex value:0] CGColor],
-                     (__bridge id)[[col colorWithComponent:componentIndex value:1] CGColor] ];
-
+                     (__bridge id)[[col colorWithComponent:componentIndex value:0.0 inMode:hsl] CGColor],
+                     (__bridge id)[[col colorWithComponent:componentIndex value:1.0 inMode:hsl] CGColor] ];
 }
 
 @end
@@ -82,10 +80,12 @@
         self.canvas.backgroundColor = color;
     }];
 
-    // the text in the center of the canvas is a hex representation of the color
+    // the text in the center of the canvas is a hex representation of the RGB color
     [colorSignal subscribeNext:^(UIColor *color) {
         @strongify(self);
-        self.canvasField.text = [NSString stringWithFormat:@"#%02X%02X%02X%02X", (int)(model.color1*255), (int)(model.color2*255), (int)(model.color3*255), (int)(model.alpha*255)];
+        CGFloat r, g, b, a;
+        [color getRed:&r green:&g blue:&b alpha:&a];
+        self.canvasField.text = [NSString stringWithFormat:@"#%02X%02X%02X%02X", (int)(r*255.), (int)(g*255.), (int)(b*255.), (int)(a*255.)];
     }];
 
 
@@ -148,10 +148,9 @@
     // adjust the gradients of each slider to show the color that would be set if the relevant component varied
     [colorSignal subscribeNext:^(UIColor *color) {
         @strongify(self);
-        [self.grad1 setGradientFromColor:color varyingComponent:0];
-        [self.grad2 setGradientFromColor:color varyingComponent:1];
-        [self.grad3 setGradientFromColor:color varyingComponent:2];
-        [self.grad4 setGradientFromColor:color varyingComponent:3];
+        [@[ self.grad1, self.grad2, self.grad3, self.grad4] enumerateObjectsUsingBlock:^(RXCLGradientView *layer, NSUInteger idx, BOOL *stop) {
+            [layer setGradientFromColor:color varyingComponent:idx inMode:model.mode];
+        }];
     }];
 
     // compress the views when the keyboard displays

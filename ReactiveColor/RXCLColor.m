@@ -30,6 +30,26 @@
                              }];
 }
 
+- (void)configureSignals {
+    @weakify(self);
+    [[RACObserve(self, mode) distinctUntilChanged] subscribeNext:^(NSNumber *mode) {
+        @strongify(self);
+        if ([mode boolValue]) { // translate from RGB->HSB
+            CGFloat h, s, b;
+            [[UIColor colorWithRed:self.color1 green:self.color2 blue:self.color3 alpha:self.alpha] getHue:&h saturation:&s brightness:&b alpha:NULL];
+            self.color1 = h;
+            self.color2 = s;
+            self.color3 = b;
+        } else { // translate from HSB->RGB
+            CGFloat r, g, b;
+            [[UIColor colorWithHue:self.color1 saturation:self.color2 brightness:self.color3 alpha:self.alpha] getRed:&r green:&g blue:&b alpha:NULL];
+            self.color1 = r;
+            self.color2 = g;
+            self.color3 = b;
+        }
+    }];
+}
+
 //+ (RXCLColor *)createColor {
 //    return [[RXCLColor alloc] init];
 //}
@@ -40,7 +60,9 @@
 @dynamic mode, color1, color2, color3, alpha;
 
 + (RXCLColor *)createColor {
-    return [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(RXCLColor.class) inManagedObjectContext:[self globalContext]];
+    RXCLColor *color = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(RXCLColor.class) inManagedObjectContext:[self globalContext]];
+    [color configureSignals];
+    return color;
 }
 
 
